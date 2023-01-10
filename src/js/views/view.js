@@ -2,17 +2,15 @@ import icons from 'url:../../img/icons.svg';
 
 export default class View {
   _data;
-
   render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0))
       return this.renderError();
-
     this._data = data;
     const markup = this._generateMarkup();
-
     if (!render) return markup;
-
     this._clear();
+
+    // Display recipe
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
@@ -35,7 +33,7 @@ export default class View {
         curEl.textContent = newEl.textContent;
       }
 
-      // Updates changed ATTRIBUES
+      // Updates changed ATTRIBUTES
       if (!newEl.isEqualNode(curEl))
         Array.from(newEl.attributes).forEach(attr =>
           curEl.setAttribute(attr.name, attr.value)
@@ -53,8 +51,8 @@ export default class View {
         <svg>
           <use href="${icons}#icon-loader"></use>
         </svg>
-      </div>
-    `;
+      </div>`;
+
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
@@ -64,12 +62,12 @@ export default class View {
       <div class="error">
         <div>
           <svg>
-            <use href="${icons}#icon-alert-triangle"></use>
+            <use href="src/${icons}#icon-alert-triangle"></use>
           </svg>
         </div>
-        <p>${message}</p>
-      </div>
-    `;
+         <p>${message}</p>
+      </div>`;
+
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
@@ -79,12 +77,12 @@ export default class View {
       <div class="message">
         <div>
           <svg>
-            <use href="${icons}#icon-smile"></use>
+            <use href="src/${icons}#icon-smile"></use>
           </svg>
         </div>
-        <p>${message}</p>
-      </div>
-    `;
+         <p>${message}</p>
+      </div>`;
+
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
