@@ -1,7 +1,7 @@
-import View from './view.js';
+import View from './View.js';
 import icons from 'url:../../img/icons.svg';
-import { Fraction } from 'fractional';
-// import fracty from 'fracty';
+// import { Fraction } from 'fractional';
+import fracty from 'fracty';
 
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
@@ -9,16 +9,13 @@ class RecipeView extends View {
   _message = '';
 
   addHandlerRender(handler) {
-    ['hashchange', 'load'].forEach(event =>
-      window.addEventListener(event, handler)
-    );
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
   addHandlerUpdateServings(handler) {
     this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.btn--tiny');
+      const btn = e.target.closest('.btn--update-servings');
       if (!btn) return;
-
       const { updateTo } = btn.dataset;
       if (+updateTo > 0) handler(+updateTo);
     });
@@ -80,9 +77,8 @@ class RecipeView extends View {
           </div>
         </div>
 
-        
         <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
-           <svg>
+          <svg>
             <use href="${icons}#icon-user"></use>
           </svg>
         </div>
@@ -98,9 +94,7 @@ class RecipeView extends View {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-        ${this._data.ingredients.map(this._generateMarkupIngredients).join('')}
-      
-        </ul>
+          ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}
       </div>
 
       <div class="recipe__directions">
@@ -119,13 +113,14 @@ class RecipeView extends View {
         >
           <span>Directions</span>
           <svg class="search__icon">
-            <use href="icon#icon-arrow-right"></use>
+            <use href="${icons}#icon-arrow-right"></use>
           </svg>
         </a>
-      </div>`;
+      </div>
+    `;
   }
 
-  _generateMarkupIngredients(ing) {
+  _generateMarkupIngredient(ing) {
     return `
     <li class="recipe__ingredient">
       <svg class="recipe__icon">
